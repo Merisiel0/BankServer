@@ -7,16 +7,16 @@ import com.atoudeft.banque.serveur.ServeurBanque;
 import java.util.Scanner;
 
 /**
- * Programme simple de démonstration d'un serveur. Le programme démarre un serveur qui se met à écouter
- * l'arrivée de connexions.
+ * Programme simple de dÃ©monstration d'un serveur. Le programme dÃ©marre un serveur qui se met Ã  Ã©couter
+ * l'arrivÃ©e de connexions.
  *
- * @author Abdelmoumène Toudeft (Abdelmoumene.Toudeft@etsmtl.ca)
+ * @author AbdelmoumÃ©ne Toudeft (Abdelmoumene.Toudeft@etsmtl.ca)
  * @version 1.0
  * @since 2023-09-01
  */
 public class ProgrammeServeurTP1 {
 	/**
-	 * Méthode principale du programme.
+	 * Mï¿½thode principale du programme.
 	 *
 	 * @param args Arguments du programme
 	 */
