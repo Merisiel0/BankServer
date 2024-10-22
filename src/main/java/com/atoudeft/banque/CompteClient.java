@@ -30,4 +30,16 @@ public class CompteClient implements Serializable {
     public boolean ajouter(CompteBancaire compte) {
         return this.comptes.add(compte);
     }
+
+    public CompteCheque getCompteCheque() {
+        for(int i = 0; i < comptes.size(); i++) {
+            if(comptes.get(i).getType() == TypeCompte.CHEQUE) {
+                return (CompteCheque)comptes.get(i);
+            }
+        }
+        return null;
+    }
+
+    public String getNumero() { return numero; }
+    public String getNip() { return nip; }
 }
