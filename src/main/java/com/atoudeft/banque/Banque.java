@@ -87,6 +87,25 @@ public class Banque implements Serializable {
     }
 
     /**
+     * @param numero le numéro a vérifier
+     * @return true si le numéro est libre, false s'il est déjà utilisé.
+     */
+    public boolean estNumeroLibre(String numero) {
+        for(int i = 0; i < comptes.size(); i++) {
+            if(comptes.get(i).getNumero().equals(numero)) {
+                return false;
+            }
+
+            for(int j = 0; j < comptes.get(i).getComptes().size(); i++) {
+                if(comptes.get(i).getComptes().get(j).getNumero().equals(numero)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
      * Crée un nouveau compte-client avec un numéro et un nip et l'ajoute à la liste des comptes.
      *
      * @param numCompteClient numéro du compte-client à créer
@@ -116,9 +135,30 @@ public class Banque implements Serializable {
         }
 
         CompteClient compte = new CompteClient(numCompteClient, nip);
+
+        String numero;
+        boolean numeroLibre = false;
+        while(!numeroLibre) {
+            numero = CompteBancaire.genereNouveauNumero();
+            numeroLibre = estNumeroLibre(numero);
+        }
+
         compte.ajouter(new CompteCheque(CompteBancaire.genereNouveauNumero()));
 
         return comptes.add(compte);
+    }
+
+    /**
+     * @param numCompteClient le compte client a veriier
+     * @return true si le compte client a un compte epargne, false sinon.
+     */
+    public boolean hasCompteEpargne(String numCompteClient) {
+        for(int i = 0; i < comptes.size(); i++) {
+            if(comptes.get(i).getNumero().equals(numCompteClient)) {
+                return comptes.get(i).getCompteEpagne() != null;
+            }
+        }
+        return false;
     }
 
     /**

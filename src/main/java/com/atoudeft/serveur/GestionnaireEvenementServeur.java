@@ -1,6 +1,9 @@
 package com.atoudeft.serveur;
 
 import com.atoudeft.banque.Banque;
+import com.atoudeft.banque.CompteBancaire;
+import com.atoudeft.banque.CompteClient;
+import com.atoudeft.banque.CompteEpargne;
 import com.atoudeft.banque.serveur.ConnexionBanque;
 import com.atoudeft.banque.serveur.ServeurBanque;
 import com.atoudeft.commun.evenement.Evenement;
@@ -55,6 +58,51 @@ public class GestionnaireEvenementServeur implements GestionnaireEvenement {
                     break;
                 case "LIST": //Envoie la liste des numéros de comptes-clients connectés :
                     cnx.envoyer("LIST " + serveurBanque.list());
+                    break;
+                case "CONNECT":
+                    if (cnx.getNumeroCompteClient()!=null) {
+                        cnx.envoyer("CONNECT NO");
+                        break;
+                    }
+                    argument = evenement.getArgument();
+                    t = argument.split(":");
+                    if (t.length<2) {
+                        cnx.envoyer("CONNECT NO");
+                    }
+                    else {
+                        numCompteClient = t[0];
+                        nip = t[1];
+                        banque = serveurBanque.getBanque();
+                        CompteClient compte = banque.getCompteClient((numCompteClient));
+                        if(!compte.getNip().equals(nip)) {
+                            cnx.envoyer("CONNECT NO");
+                        }
+                        else {
+                            cnx.setNumeroCompteClient(numCompteClient);
+                            cnx.setNumeroCompteActuel(compte.getCompteCheque().getNumero());
+                            cnx.envoyer("CONNECT OK");
+                        }
+                    }
+                    break;
+                case "EPARGNE":
+                    if (cnx.getNumeroCompteClient()==null) {
+                        cnx.envoyer("EPARGNE NO");
+                        break;
+                    }
+                    banque = serveurBanque.getBanque();
+                    if(banque.hasCompteEpargne(cnx.getNumeroCompteClient())) {
+                        String numero = "";
+                        boolean numeroLibre = false;
+                        while(!numeroLibre) {
+                            numero = CompteBancaire.genereNouveauNumero();
+                            numeroLibre = banque.estNumeroLibre(numero);
+                        }
+                        banque.getCompteClient(cnx.getNumeroCompteClient()).ajouter(new CompteEpargne(numero, 0.05f));
+                    }
+                    else {
+                        cnx.envoyer("EPARGNE NO");
+                    }
+                    CompteClient compte = serveurBanque.getBanque().getCompteClient(cnx.getNumeroCompteClient());
                     break;
                 /******************* COMMANDES DE GESTION DE COMPTES *******************/
                 case "NOUVEAU": //Crée un nouveau compte-client :

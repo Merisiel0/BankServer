@@ -31,6 +31,10 @@ public class CompteClient implements Serializable {
         return this.comptes.add(compte);
     }
 
+    /**
+     * Retourne le compte cheque du compte-client.
+     * Retourne null si aucun n'est trouvé.
+     */
     public CompteCheque getCompteCheque() {
         for(int i = 0; i < comptes.size(); i++) {
             if(comptes.get(i).getType() == TypeCompte.CHEQUE) {
@@ -38,6 +42,26 @@ public class CompteClient implements Serializable {
             }
         }
         return null;
+    }
+
+    /**
+     * Retourne le compte epargne du compte-client.
+     * Retourne null si aucun n'est trouvé.
+     */
+    public CompteEpargne getCompteEpagne() {
+        for(int i = 0; i < comptes.size(); i++) {
+            if(comptes.get(i).getType() == TypeCompte.EPARGNE) {
+                return (CompteEpargne) comptes.get(i);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Retourne les comptes bancaires du compte-client.
+     */
+    public List<CompteBancaire> getComptes() {
+        return comptes;
     }
 
     public String getNumero() { return numero; }

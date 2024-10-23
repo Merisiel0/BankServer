@@ -1,12 +1,22 @@
 package com.atoudeft.banque;
 
-public class CompteCheque extends CompteBancaire {
+public class CompteEpargne extends CompteBancaire {
+    private final int limiteDeFrais = 1000;
+    private final int frais = 2;
+    private float tauxInterets;
+
     /**
      * Crée un compte cheque.
      * @param numero numéro du compte
+     * @param tauxInterets taux d'interets du compte (0.01 = 1%)
      */
-    public CompteCheque(String numero) {
-        super(numero, TypeCompte.CHEQUE);
+    public CompteEpargne(String numero, float tauxInterets) {
+        super(numero, TypeCompte.EPARGNE);
+        this.tauxInterets = tauxInterets;
+    }
+
+    public void ajouterInterets() {
+        solde += solde * tauxInterets;
     }
 
     /**
@@ -22,10 +32,12 @@ public class CompteCheque extends CompteBancaire {
     /**
      * Retire le montant du solde s'il est strictement position et
      * qu'il y a assez de fonds. Sinon, retourne false.
+     * Si la solde contient moins que limiteDeFrais avant l'operation,
+     * des frais seront ajoutés.
      */
     public boolean debiter(double montant) {
         if(montant < 0 || solde < montant) return false;
-        solde -= montant;
+        solde -= solde < limiteDeFrais ? montant + frais : montant;
         return true;
     }
 
