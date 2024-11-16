@@ -9,6 +9,7 @@ public class CompteClient implements Serializable {
     private String nip;
     private List<CompteBancaire> comptes;
 
+
     /**
      * Crée un compte-client avec un numéro et un nip.
      *

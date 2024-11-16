@@ -89,6 +89,25 @@ public class GestionnaireEvenementServeur implements GestionnaireEvenement {
                         }
                     }
                     break;
+                case "HIST": //Demande l'historique des actions :
+                    if (cnx.getNumeroCompteClient()!=null) {
+                        cnx.envoyer("HIST NO");
+                        break;
+                    }
+                    banque = serveurBanque.getBanque();
+                    nbComptes = banque.getCompteClient(cnx.getNumeroCompteClient()).getComptes().size();
+                    listeDesComptes = banque.getCompteClient(cnx.getNumeroCompteClient()).getComptes();
+                    for (int i = 0; i<nbComptes; i++){
+                        if (listeDesComptes.get(i).getNumero().equals(cnx.getNumeroCompteActuel())){
+                            if(!listeDesComptes.get(i).afficherHistorique()){
+                                cnx.envoyer("HIST NO");
+                                break;
+                            }
+                            cnx.envoyer("HIST OK");
+                            break;
+                        }
+                    }
+                /******************* COMMANDES DE GESTION DE COMPTES *******************/
                 case "DEPOT":
                     if (cnx.getNumeroCompteClient()!=null) {
                         cnx.envoyer("DEPOT NO");
@@ -234,7 +253,6 @@ public class GestionnaireEvenementServeur implements GestionnaireEvenement {
                     }
                     CompteClient compte = serveurBanque.getBanque().getCompteClient(cnx.getNumeroCompteClient());
                     break;
-                /******************* COMMANDES DE GESTION DE COMPTES *******************/
                 case "NOUVEAU": //Crée un nouveau compte-client :
                     if (cnx.getNumeroCompteClient()!=null) {
                         cnx.envoyer("NOUVEAU NO deja connecte");

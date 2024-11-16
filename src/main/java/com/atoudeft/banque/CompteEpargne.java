@@ -26,6 +26,7 @@ public class CompteEpargne extends CompteBancaire {
     public boolean crediter(double montant) {
         if(montant < 0) return false;
         solde += montant;
+        historique.empiler(new OperationDepot(montant));
         return true;
     }
 
@@ -38,6 +39,7 @@ public class CompteEpargne extends CompteBancaire {
     public boolean debiter(double montant) {
         if(montant < 0 || solde < montant) return false;
         solde -= solde < limiteDeFrais ? montant + frais : montant;
+        historique.empiler(new OperationDepot(montant));
         return true;
     }
 
@@ -49,6 +51,7 @@ public class CompteEpargne extends CompteBancaire {
      * @return false.
      */
     public boolean payerFacture(String numeroFacture, double montant, String description) {
+        historique.empiler(new OperationFacture(montant, numeroFacture, description));
         return false;
     }
 
@@ -59,6 +62,24 @@ public class CompteEpargne extends CompteBancaire {
      * @return false.
      */
     public boolean transferer(double montant, String numeroCompteDestinataire) {
+        historique.empiler(new OperationTransfer(montant, numeroCompteDestinataire));
         return false;
+    }
+    public boolean afficherHistorique() {
+        if (historique.estVide()){
+            System.out.println("HISTORIQUE VIDE");
+        } else {
+            PileChainee pileTemporaire = new PileChainee();
+            for (int i = 0; i < historique.getTaille(); i++) {
+                Operation courant = (Operation) historique.depiler();
+                System.out.println(courant);
+                pileTemporaire.empiler(courant);
+            }
+            for (int i = 0; i < pileTemporaire.getTaille(); i++) {
+                Operation courant = (Operation) pileTemporaire.depiler();
+                historique.empiler(courant);
+            }
+        }
+        return true;
     }
 }
