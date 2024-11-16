@@ -5,7 +5,7 @@ import java.io.Serializable;
 public abstract class CompteBancaire implements Serializable {
     private String numero;
     private TypeCompte type;
-    protected double solde;
+    protected double solde; // vérifier le dépassement de la valeur maximale d'un double ??
 
     /**
      * Génère un numéro de compte bancaire aléatoirement avec le format CCC00C, où C est un caractère alphabétique
