@@ -26,15 +26,14 @@ public class ConnexionBanque extends Connexion {
      * Indique si le client utilisant cette connexion est inactif pendant une durée au moins égale à delai en millisecondes.
      *
      * @param delai le délai en millisecondes
-     * @return true la durée d'inactivité est supérieure à delai
+     * @return true la durée d'inactivité est supérieure ou égale à delai
      */
     public boolean estInactifDepuis(long delai) {
-        return tempsDerniereOperation > delai;
+        return  System.currentTimeMillis() - delai >= tempsDerniereOperation;
     }
 
     /**
      * Retourne le moment en millisecondes de la dernière opération du client utilisant cette connexion.
-     *+
      *
      * @return le moment en millisecondes de la dernière opération du client
      */

@@ -93,11 +93,11 @@ public class ServeurBanque extends Serveur {
         for (Connexion individu:connectes){  //parcours tout les clients qui sont "connecté" dans connexion
             //((ConnexionBanque)cnx) = polymorphisme
 
-            long instant = (((ConnexionBanque)individu).getTempsDerniereOperation());
+            //long instant = (((ConnexionBanque)individu).getTempsDerniereOperation());
             //System.out.println(instant);
-              ((ConnexionBanque) individu).estInactifDepuis(instant - System.currentTimeMillis());
+              //((ConnexionBanque) individu).estInactifDepuis(instant - System.currentTimeMillis());
 
-            if(((ConnexionBanque) individu).estInactifDepuis(System.currentTimeMillis()-instant)){
+            if(((ConnexionBanque) individu).estInactifDepuis(DELAI_INACTIVITE)){ //System.currentTimeMillis()-instant
                 //le délai donné 30 000 millisecondes
                 //System.out.println("Un compte est bel et bien inactif");
 
