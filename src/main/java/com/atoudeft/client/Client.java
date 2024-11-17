@@ -105,7 +105,7 @@ public class Client implements Lecteur {
 
         String[] t;
         Evenement evenement;
-        String texte ="testcouille";
+        String texte =connexion.getAvailableText();
                 //connexion.getAvailableText();
 
         if (!"".equals(texte)){

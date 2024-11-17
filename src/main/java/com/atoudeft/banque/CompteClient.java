@@ -41,6 +41,7 @@ public class CompteClient implements Serializable {
     /**
      * Retourne le compte cheque du compte-client.
      * Retourne null si aucun n'est trouvé.
+     * @return le résultat de la recherche
      */
     public CompteCheque getCompteCheque() {
         for(int i = 0; i < comptes.size(); i++) {
