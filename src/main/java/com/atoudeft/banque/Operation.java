@@ -3,7 +3,9 @@ package com.atoudeft.banque;
 import java.io.Serializable;
 import java.util.Date;
 
-
+/**
+ * Classe abstraite représentant une opération quelconque
+ */
 public abstract class Operation implements Serializable {
 
     TypeOperation operation;

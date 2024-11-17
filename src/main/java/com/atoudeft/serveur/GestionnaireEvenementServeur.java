@@ -6,8 +6,6 @@ import com.atoudeft.banque.serveur.ServeurBanque;
 import com.atoudeft.commun.evenement.Evenement;
 import com.atoudeft.commun.evenement.GestionnaireEvenement;
 import com.atoudeft.commun.net.Connexion;
-
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -90,7 +88,7 @@ public class GestionnaireEvenementServeur implements GestionnaireEvenement {
                     }
                     break;
                 case "HIST": //Demande l'historique des actions :
-                    if (cnx.getNumeroCompteClient()!=null) {
+                    if (cnx.getNumeroCompteClient()==null) {
                         cnx.envoyer("HIST NO");
                         break;
                     }
@@ -99,17 +97,15 @@ public class GestionnaireEvenementServeur implements GestionnaireEvenement {
                     listeDesComptes = banque.getCompteClient(cnx.getNumeroCompteClient()).getComptes();
                     for (int i = 0; i<nbComptes; i++){
                         if (listeDesComptes.get(i).getNumero().equals(cnx.getNumeroCompteActuel())){
-                            if(!listeDesComptes.get(i).afficherHistorique()){
-                                cnx.envoyer("HIST NO");
-                                break;
-                            }
-                            cnx.envoyer("HIST OK");
+                            cnx.envoyer(listeDesComptes.get(i).afficherHistorique());
                             break;
                         }
                     }
+                cnx.envoyer("HIST NO");
+                break;
                 /******************* COMMANDES DE GESTION DE COMPTES *******************/
                 case "DEPOT":
-                    if (cnx.getNumeroCompteClient()!=null) {
+                    if (cnx.getNumeroCompteClient()==null) {
                         cnx.envoyer("DEPOT NO");
                         break;
                     }
@@ -135,7 +131,7 @@ public class GestionnaireEvenementServeur implements GestionnaireEvenement {
                     cnx.envoyer("DEPOT NO");
                     break;
                 case "RETRAIT":
-                    if (cnx.getNumeroCompteClient()!=null) {
+                    if (cnx.getNumeroCompteClient()==null) {
                         cnx.envoyer("RETRAIT NO");
                         break;
                     }
@@ -161,7 +157,7 @@ public class GestionnaireEvenementServeur implements GestionnaireEvenement {
                     cnx.envoyer("RETRAIT NO");
                     break;
                 case "FACTURE":
-                    if (cnx.getNumeroCompteClient()!=null) {
+                    if (cnx.getNumeroCompteClient()==null) {
                         cnx.envoyer("FACTURE NO");
                         break;
                     }
@@ -199,7 +195,7 @@ public class GestionnaireEvenementServeur implements GestionnaireEvenement {
                     cnx.envoyer("FACTURE NO");
                     break;
                 case "TRANSFER":
-                    if (cnx.getNumeroCompteClient()!=null) {
+                    if (cnx.getNumeroCompteClient()==null) {
                         cnx.envoyer("TRANSFER NO");
                         break;
                     }

@@ -34,6 +34,7 @@ public class ConnexionBanque extends Connexion {
 
     /**
      * Retourne le moment en millisecondes de la dernière opération du client utilisant cette connexion.
+     *+
      *
      * @return le moment en millisecondes de la dernière opération du client
      */

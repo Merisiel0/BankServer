@@ -36,6 +36,30 @@ public abstract class CompteBancaire implements Serializable {
         this.solde = 0;
         historique = new PileChainee();
     }
+    /**
+     * Retourne l'historique sous forme de String
+     * @return l'historique sous forme de String
+     */
+    public String afficherHistorique() {
+        StringBuilder affichageHistorique = new StringBuilder();
+        affichageHistorique.append("HISTORIQUE : \n");
+
+        if (historique.estVide()){
+            affichageHistorique.append("HISTORIQUE VIDE");
+        } else {
+            PileChainee pileTemporaire = new PileChainee();
+            for (int i = 0; i < historique.getTaille(); i++) {
+                Operation courant = (Operation) historique.depiler();
+                affichageHistorique.append(courant.toString());
+                pileTemporaire.empiler(courant);
+            }
+            for (int i = 0; i < pileTemporaire.getTaille(); i++) {
+                Operation courant = (Operation) pileTemporaire.depiler();
+                historique.empiler(courant);
+            }
+        }
+        return affichageHistorique.toString();
+    }
     public String getNumero() {
         return numero;
     }
@@ -49,5 +73,4 @@ public abstract class CompteBancaire implements Serializable {
     public abstract boolean debiter(double montant);
     public abstract boolean payerFacture(String numeroFacture, double montant, String description);
     public abstract boolean transferer(double montant, String numeroCompteDestinataire);
-    public abstract boolean afficherHistorique();
 }
