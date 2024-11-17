@@ -110,27 +110,14 @@ public class Banque implements Serializable {
      *
      * @param numCompteClient numéro du compte-client à créer
      * @param nip nip du compte-client à créer
-     * @return true si le compte a été créé correctement
+     * @return true si le compte a été créé correctement, sinon false
      */
     public boolean ajouter(String numCompteClient, String nip) {
-        /*À compléter et modifier :
-            - Vérifier que le numéro a entre 6 et 8 caractères et ne contient que des lettres majuscules et des chiffres.
-              Sinon, retourner false.
-            - Vérifier que le nip a entre 4 et 5 caractères et ne contient que des chiffres. Sinon,
-              retourner false.
-            - Vérifier s'il y a déjà un compte-client avec le numéro, retourner false.
-            - Sinon :
-                . Créer un compte-client avec le numéro et le nip;
-                . Générer (avec CompteBancaire.genereNouveauNumero()) un nouveau numéro de compte bancaire qui n'est
-                  pas déjà utilisé;
-                . Créer un compte-chèque avec ce numéro et l'ajouter au compte-client;
-                . Ajouter le compte-client à la liste des comptes et retourner true.
-         */
-        if(6 > numCompteClient.length() || 8 < numCompteClient.length()
-            || !numCompteClient.matches("[A-Z0-9]+")
-            || 4 > nip.length() || 5 < nip.length()
-            || !nip.matches("[0-9]")
-            || comptes.stream().anyMatch(n -> n.getNip().equals(nip))) {
+        if(6 > numCompteClient.length() || 8 < numCompteClient.length() // Vérifier que le numéro a entre 6 et 8 caractères.
+            || !numCompteClient.matches("[A-Z0-9]+") // Vérifier que le numéro ne contient que des lettres majuscules et des chiffres.
+            || 4 > nip.length() || 5 < nip.length() // Vérifier que le nip a entre 4 et 5 caractères.
+            || !nip.matches("[0-9]") // Vérifier que le nip ne contient que des chiffres.
+            || comptes.stream().anyMatch(n -> n.getNip().equals(nip))) { // Vérifier s'il y a déjà un compte-client avec le numéro.
             return false;
         }
 
@@ -163,6 +150,7 @@ public class Banque implements Serializable {
 
     /**
      * Retourne le numéro du compte-chèque d'un client à partir de son numéro de compte-client.
+     * Retourne null si le numéro de compte-client n'existe pas.
      *
      * @param numCompteClient numéro de compte-client
      * @return numéro du compte-chèque du client ayant le numéro de compte-client

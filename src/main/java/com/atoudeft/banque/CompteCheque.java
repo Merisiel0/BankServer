@@ -10,8 +10,9 @@ public class CompteCheque extends CompteBancaire {
     }
 
     /**
-     * Ajoute le montant au solde s'il est strictement position.
-     * Sinon, retoure false.
+     * Ajoute le montant au solde s'il est strictement positif.
+     * @param montant le montant à créditer
+     * @return true si l'opération fonctionne, false si le montant n'est pas positif
      */
     @Override
     public boolean crediter(double montant) {
@@ -22,8 +23,9 @@ public class CompteCheque extends CompteBancaire {
     }
 
     /**
-     * Retire le montant du solde s'il est strictement position et
-     * qu'il y a assez de fonds. Sinon, retourne false.
+     * Retire le montant du solde s'il est strictement positif et qu'il y a asser de fonds.
+     * @param montant le montant a debiter
+     * @return false si le montant n'est pas positif ou s'il n'y a pas asser de fonds, sinon true.
      */
     @Override
     public boolean debiter(double montant) {

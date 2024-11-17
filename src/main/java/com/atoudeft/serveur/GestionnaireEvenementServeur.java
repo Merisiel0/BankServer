@@ -236,18 +236,17 @@ public class GestionnaireEvenementServeur implements GestionnaireEvenement {
                     }
                     banque = serveurBanque.getBanque();
                     if(banque.hasCompteEpargne(cnx.getNumeroCompteClient())) {
-                        String numero = "";
-                        boolean numeroLibre = false;
-                        while(!numeroLibre) {
-                            numero = CompteBancaire.genereNouveauNumero();
-                            numeroLibre = banque.estNumeroLibre(numero);
-                        }
-                        banque.getCompteClient(cnx.getNumeroCompteClient()).ajouter(new CompteEpargne(numero, 0.05f));
-                    }
-                    else {
                         cnx.envoyer("EPARGNE NO");
+                        break;
                     }
-                    CompteClient compte = serveurBanque.getBanque().getCompteClient(cnx.getNumeroCompteClient());
+                    String numero = "";
+                    boolean numeroLibre = false;
+                    while(!numeroLibre) {
+                        numero = CompteBancaire.genereNouveauNumero();
+                        numeroLibre = banque.estNumeroLibre(numero);
+                    }
+                    banque.getCompteClient(cnx.getNumeroCompteClient()).ajouter(new CompteEpargne(numero, 0.05f));
+                    cnx.envoyer("EPAGNE OK");
                     break;
                 case "NOUVEAU": //Crée un nouveau compte-client :
                     if (cnx.getNumeroCompteClient()!=null) {
