@@ -142,7 +142,7 @@ public class Banque implements Serializable {
     public boolean hasCompteEpargne(String numCompteClient) {
         for(int i = 0; i < comptes.size(); i++) {
             if(comptes.get(i).getNumero().equals(numCompteClient)) {
-                return comptes.get(i).getCompteEpagne() != null;
+                return comptes.get(i).getCompteEpargne() != null;
             }
         }
         return false;

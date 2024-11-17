@@ -56,7 +56,7 @@ public class CompteClient implements Serializable {
      * Retourne le compte epargne du compte-client.
      * Retourne null si aucun n'est trouvé.
      */
-    public CompteEpargne getCompteEpagne() {
+    public CompteEpargne getCompteEpargne() {
         for(int i = 0; i < comptes.size(); i++) {
             if(comptes.get(i).getType() == TypeCompte.EPARGNE) {
                 return (CompteEpargne) comptes.get(i);

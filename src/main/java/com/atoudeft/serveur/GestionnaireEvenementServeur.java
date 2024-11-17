@@ -104,6 +104,31 @@ public class GestionnaireEvenementServeur implements GestionnaireEvenement {
                 cnx.envoyer("HIST NO");
                 break;
                 /******************* COMMANDES DE GESTION DE COMPTES *******************/
+                case "SELECT":
+                    if (cnx.getNumeroCompteClient()==null) {
+                        cnx.envoyer("SELECT NO");
+                        break;
+                    }
+                    argument = evenement.getArgument();
+                    t = argument.split(" ");
+                    if(t.length != 2){
+                        cnx.envoyer("SELECT NO");
+                        break;
+                    }
+                    banque = serveurBanque.getBanque();
+                    CompteClient compteActuel = banque.getCompteClient(cnx.getNumeroCompteClient());
+                    if(t[1].equals("cheque")){
+                        cnx.setNumeroCompteActuel(compteActuel.getCompteCheque().getNumero());
+                        cnx.envoyer("SELECT OK");
+                        break;
+                    }
+                    else if(t[1].equals("epargne")){
+                        cnx.setNumeroCompteActuel(compteActuel.getCompteEpargne().getNumero());
+                        cnx.envoyer("SELECT OK");
+                        break;
+                    }
+                    cnx.envoyer("SELECT NO");
+                    break;
                 case "DEPOT":
                     if (cnx.getNumeroCompteClient()==null) {
                         cnx.envoyer("DEPOT NO");
