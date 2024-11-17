@@ -75,6 +75,7 @@ public class ServeurBanque extends Serveur {
     public String list() {
         String s = "";
         for (Connexion cnx:connectes) {
+                 //((ConnexionBanque)cnx) = polymorphisme
             s += ((ConnexionBanque)cnx).getNumeroCompteClient() + ":";
         }
         return s;
@@ -84,6 +85,30 @@ public class ServeurBanque extends Serveur {
      * du TP).
      */
     public void supprimeInactifs() {
+        //System.out.println(".");
+
         //À définir :
+
+        //je veux parcourir tout les Clients sur le serveur
+        for (Connexion individu:connectes){  //parcours tout les clients qui sont "connecté" dans connexion
+            //((ConnexionBanque)cnx) = polymorphisme
+
+            long instant = (((ConnexionBanque)individu).getTempsDerniereOperation());
+            //System.out.println(instant);
+              ((ConnexionBanque) individu).estInactifDepuis(instant - System.currentTimeMillis());
+
+            if(((ConnexionBanque) individu).estInactifDepuis(System.currentTimeMillis()-instant)){
+                //le délai donné 30 000 millisecondes
+                //System.out.println("Un compte est bel et bien inactif");
+
+                //afficher "END
+                individu.envoyer("END");
+                //Ferme Connexion
+                individu.close();
+                //enlever de la liste des conectées
+                connectes.remove(individu);
+                break;
+            }
+        }
     }
 }

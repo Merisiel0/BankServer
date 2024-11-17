@@ -262,9 +262,9 @@ public class GestionnaireEvenementServeur implements GestionnaireEvenement {
                         numCompteClient = t[0];
                         nip = t[1];
                         banque = serveurBanque.getBanque();
-                        if (banque.ajouter(numCompteClient,nip)) {
-                            cnx.setNumeroCompteClient(numCompteClient);
-                            cnx.setNumeroCompteActuel(banque.getNumeroCompteParDefaut(numCompteClient));
+                        if (banque.ajouter(numCompteClient,nip)) {          //si on peut ajouter le Compte
+                            cnx.setNumeroCompteClient(numCompteClient);     //modifie le Numero du Compte Client
+                            cnx.setNumeroCompteActuel(banque.getNumeroCompteParDefaut(numCompteClient));  //*******
                             cnx.envoyer("NOUVEAU OK " + t[0] + " cree");
                         }
                         else

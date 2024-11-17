@@ -82,7 +82,7 @@ public class Connexion {
 		{
 		  //envoyer("Connexion closed !");
 		  is.close();
-		  os.close();			
+		  os.close();
 		  socket.close();
 		}
 		catch(IOException e)
