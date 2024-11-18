@@ -9,7 +9,7 @@ public class OperationTransfer extends Operation implements Serializable {
      */
     private String numero;
     public OperationTransfer (double montant, String numero){
-        super(TypeOperation.DEPOT, System.currentTimeMillis(), montant);
+        super(TypeOperation.TRANSFER, System.currentTimeMillis(), montant);
         this.numero = numero;
     }
     /**

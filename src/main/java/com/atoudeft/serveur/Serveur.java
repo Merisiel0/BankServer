@@ -197,8 +197,7 @@ public class Serveur implements Lecteur {
         Connexion cnx;
         String[] t;
         Evenement evenement;
-        int taille = connectes.size();
-        for (int i=0;i<taille;i++) {
+        for (int i=0;i<connectes.size();i++) {
             cnx = connectes.get(i);
             String texte = cnx.getAvailableText();
             if (!"".equals(texte)) {

@@ -8,7 +8,7 @@ public class OperationRetrait extends Operation implements Serializable {
      * @param montant le montant de l'opération
      */
     public OperationRetrait (double montant){
-        super(TypeOperation.DEPOT, System.currentTimeMillis(), montant);
+        super(TypeOperation.RETRAIT, System.currentTimeMillis(), montant);
     }
 
     /**

@@ -19,7 +19,7 @@ public class OperationDepot extends Operation implements Serializable {
         phrase.append(this.getDate());
         phrase.append(" \t");
         phrase.append(this.getOperation());
-        phrase.append(" \t");
+        phrase.append(" \t\t");
         phrase.append(this.getMontant());
         return phrase.toString();
     }

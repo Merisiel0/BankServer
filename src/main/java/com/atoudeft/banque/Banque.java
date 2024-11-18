@@ -22,8 +22,12 @@ public class Banque implements Serializable {
      * @return le compte-client s'il a été trouvé. Sinon, retourne null
      */
     public CompteClient getCompteClient(String numeroCompteClient) {
-        CompteClient cpt = new CompteClient(numeroCompteClient,"");
-        int index = this.comptes.indexOf(cpt);
+        int index = -1;
+        for(int i=0; i< comptes.size(); i++){
+            if (comptes.get(i).getNumero().equals(numeroCompteClient)){
+                index =i;
+            }
+        }
         if (index != -1)
             return this.comptes.get(index);
         else
@@ -96,7 +100,7 @@ public class Banque implements Serializable {
                 return false;
             }
 
-            for(int j = 0; j < comptes.get(i).getComptes().size(); i++) {
+            for(int j = 0; j < comptes.get(i).getComptes().size(); j++) {
                 if(comptes.get(i).getComptes().get(j).getNumero().equals(numero)) {
                     return false;
                 }
@@ -116,8 +120,8 @@ public class Banque implements Serializable {
         if(6 > numCompteClient.length() || 8 < numCompteClient.length() // Vérifier que le numéro a entre 6 et 8 caractères.
             || !numCompteClient.matches("[A-Z0-9]+") // Vérifier que le numéro ne contient que des lettres majuscules et des chiffres.
             || 4 > nip.length() || 5 < nip.length() // Vérifier que le nip a entre 4 et 5 caractères.
-            || !nip.matches("[0-9]") // Vérifier que le nip ne contient que des chiffres.
-            || comptes.stream().anyMatch(n -> n.getNip().equals(nip))) { // Vérifier s'il y a déjà un compte-client avec le numéro.
+            || !nip.matches("[0-9]+") // Vérifier que le nip ne contient que des chiffres.
+            || comptes.stream().anyMatch(n -> n.getNumero().equals(numCompteClient))) { // Vérifier s'il y a déjà un compte-client avec le numéro.
             return false;
         }
 

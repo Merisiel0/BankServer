@@ -11,15 +11,15 @@ DISCONNECTING : le client est entrain de se déconnecter
 
 package com.atoudeft.client;
 
-import com.atoudeft.commun.evenement.Evenement;
-import com.atoudeft.commun.evenement.EvenementUtil;
-import com.atoudeft.commun.evenement.GestionnaireEvenement;
+import java.net.Socket;
+import java.io.*;
+
 import com.atoudeft.commun.net.Connexion;
 import com.atoudeft.commun.thread.Lecteur;
+import com.atoudeft.commun.evenement.Evenement;
+import com.atoudeft.commun.evenement.GestionnaireEvenement;
+import com.atoudeft.commun.evenement.EvenementUtil;
 import com.atoudeft.commun.thread.ThreadEcouteurDeTexte;
-
-import java.io.IOException;
-import java.net.Socket;
 
 /**
  * Cette classe représente un client capable de se connecter à un serveur.
@@ -105,8 +105,7 @@ public class Client implements Lecteur {
 
         String[] t;
         Evenement evenement;
-        String texte =connexion.getAvailableText();
-                //connexion.getAvailableText();
+        String texte = connexion.getAvailableText();
 
         if (!"".equals(texte)){
             t = EvenementUtil.extraireInfosEvenement(texte);

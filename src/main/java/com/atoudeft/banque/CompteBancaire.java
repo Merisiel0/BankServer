@@ -48,13 +48,15 @@ public abstract class CompteBancaire implements Serializable {
             affichageHistorique.append("HISTORIQUE VIDE");
         } else {
             PileChainee pileTemporaire = new PileChainee();
-            for (int i = 0; i < historique.getTaille(); i++) {
+            int tailleHistorique = historique.getTaille();
+            for (int i = 0; i < tailleHistorique; i++) {
                 Operation courant = (Operation) historique.depiler();
-                affichageHistorique.append(courant.toString());
                 pileTemporaire.empiler(courant);
             }
-            for (int i = 0; i < pileTemporaire.getTaille(); i++) {
+            for (int i = 0; i < tailleHistorique; i++) {
                 Operation courant = (Operation) pileTemporaire.depiler();
+                affichageHistorique.append(courant.toString());
+                affichageHistorique.append("\n");
                 historique.empiler(courant);
             }
         }

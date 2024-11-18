@@ -47,7 +47,7 @@ public class CompteEpargne extends CompteBancaire {
     public boolean debiter(double montant) {
         if(montant < 0 || solde < montant) return false;
         solde -= solde < limiteDeFrais ? montant + frais : montant;
-        historique.empiler(new OperationDepot(montant));
+        historique.empiler(new OperationRetrait(montant));
         return true;
     }
 

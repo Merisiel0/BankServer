@@ -9,7 +9,7 @@ public class OperationFacture extends Operation implements Serializable {
      */
     private String numero, description;
     public OperationFacture (double montant, String numero, String description){
-        super(TypeOperation.DEPOT, System.currentTimeMillis(), montant);
+        super(TypeOperation.FACTURE, System.currentTimeMillis(), montant);
         this.numero = numero;
         this.description=description;
     }

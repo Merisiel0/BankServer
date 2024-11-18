@@ -31,7 +31,7 @@ public class CompteCheque extends CompteBancaire {
     public boolean debiter(double montant) {
         if(montant < 0 || solde < montant) return false;
         solde -= montant;
-        historique.empiler(new OperationDepot(montant));
+        historique.empiler(new OperationRetrait(montant));
         return true;
     }
 
